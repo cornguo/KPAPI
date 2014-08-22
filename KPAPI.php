@@ -41,10 +41,8 @@ class KPAPI implements \Iterator {
             return $this->getData($key);
         } elseif (isset($this->_urls[$key])) {
             return $this->_getDataObj($key);
-        } else {
-            return $this->getData();
         }
-        return NULL;
+        return $this->getData();
     }
 
     public function getData($key = NULL) {
