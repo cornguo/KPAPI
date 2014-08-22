@@ -40,7 +40,7 @@ class KPAPI implements \Iterator {
         if ($this->_level >= 2) {
             return $this->getData($key);
         } elseif (isset($this->_urls[$key])) {
-            return $this->_getDataObj($key);
+            return $this->_getKPObj($key);
         }
         return $this->getData();
     }
@@ -60,15 +60,15 @@ class KPAPI implements \Iterator {
         return $this->data;
     }
 
-    private function _getDataObj($key) {
+    private function _getKPObj($key) {
         $data = file_get_contents($this->_urls[$key]);
         if (false === $data) {
             return -1;
         } else {
-            $dataObject = json_decode($data);
-            if (true === $dataObject->isSuccess) {
-                if (isset($dataObject->data)) {
-                    return new KPAPI($this->_token, $this->endpoint . '/' . $key, $dataObject->data);
+            $obj = json_decode($data);
+            if (true === $obj->isSuccess) {
+                if (isset($obj->data)) {
+                    return new KPAPI($this->_token, $this->endpoint . '/' . $key, $obj->data);
                 } else {
                     return $data;
                 }
@@ -103,4 +103,3 @@ class KPAPI implements \Iterator {
     }
 
 }
-
