@@ -7,7 +7,6 @@ class KPAPI implements \Iterator {
     private $_urlKeys = array();
     private $_level = 0;
     protected $endpoint = 'http://api.kptaipei.tw/v1';
-    protected $obj = NULL;
     protected $data = NULL;
     protected $pos = 0;
 
