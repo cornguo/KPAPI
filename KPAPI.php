@@ -50,16 +50,18 @@ class KPAPI implements \Iterator {
     }
 
     public function getData($key = NULL) {
-        if (isset($this->data->{$key})) {
-            return $this->data->{$key};
+        if (NULL !== $key) {
+            if (isset($this->data->{$key})) {
+                return $this->data->{$key};
+            }
+
+            $pos = array_search($key, $this->_urlKeys);
+
+            if (false !== $pos) {
+                return $this->data[$pos];
+            }
         }
-        $pos = array_search($key, $this->_urlKeys);
-        if (false !== $pos) {
-            return $this->data[$pos];
-        } else {
-            return $this->data;
-        }
-        return NULL;
+        return $this->data;
     }
 
     private function _getDataObj($key) {
@@ -69,9 +71,11 @@ class KPAPI implements \Iterator {
         } else {
             $dataObject = json_decode($data);
             if (true === $dataObject->isSuccess) {
-                return new KPAPI($this->_token, $this->endpoint . '/' . $key, $dataObject->data);
-            } else {
-                return $data;
+                if (isset($dataObject->data)) {
+                    return new KPAPI($this->_token, $this->endpoint . '/' . $key, $dataObject->data);
+                } else {
+                    return $data;
+                }
             }
         }
         return NULL;
