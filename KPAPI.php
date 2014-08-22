@@ -29,10 +29,8 @@ class KPAPI implements \Iterator {
         foreach ($objs as $obj) {
             if (isset($obj->id)) {
                 $this->_urls[$obj->id] = $this->_generateUrl($obj->id);
-            } else {
-                if (is_string($obj)) {
-                    $this->_urls[$obj] = $this->_generateUrl($obj);
-                }
+            } elseif (is_string($obj)) {
+                $this->_urls[$obj] = $this->_generateUrl($obj);
             }
         }
         $this->_urlKeys = array_keys($this->_urls);
