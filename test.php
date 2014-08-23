@@ -49,3 +49,16 @@ foreach ($playlists as $key => $playlist) {
     }
     echo "\n";
 }
+
+echo "\n== DUMP MUSICS ==\n";
+
+$playlists = $api->musics;
+
+foreach ($playlists as $key => $playlist) {
+    $playlistName = $playlists->getData($key)->name;
+    echo ">> {$playlistName}\n";
+    foreach ($playlist as $music) {
+        echo "\t>> {$music->groupname} - {$music->song_name}\n";
+    }
+    echo "\n";
+}
