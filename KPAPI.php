@@ -7,7 +7,7 @@ class KPAPI implements \Iterator {
     private $_urlKeys = array();
     private $_level = 0;
     protected $endpoint = 'http://api.kptaipei.tw/v1';
-    protected $data = NULL;
+    protected $data = array();
     protected $pos = 0;
 
     public function __construct($token = NULL, $endpoint = NULL, $objs = NULL) {
@@ -22,9 +22,9 @@ class KPAPI implements \Iterator {
         }
         if (NULL === $objs) {
             $objs = array('category', 'albums', 'videos', 'musics');
+        } else {
+            $this->data = $objs;
         }
-
-        $this->data = $objs;
 
         foreach ($objs as $obj) {
             if (isset($obj->id)) {
@@ -76,7 +76,7 @@ class KPAPI implements \Iterator {
                 }
             }
         }
-        return NULL;
+        return array();
     }
 
     private function _generateUrl($key = NULL) {
