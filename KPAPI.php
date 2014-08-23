@@ -21,7 +21,7 @@ class KPAPI implements \Iterator {
             $this->endpoint = $endpoint;
         }
         if (NULL === $objs) {
-            $objs = array('category', 'albums', 'videos');
+            $objs = array('category', 'albums', 'videos', 'musics');
         }
 
         $this->data = $objs;
@@ -31,6 +31,8 @@ class KPAPI implements \Iterator {
                 $this->_urls[$obj->id] = $this->_generateUrl($obj->id);
             } elseif (is_string($obj)) {
                 $this->_urls[$obj] = $this->_generateUrl($obj);
+            } elseif (isset($obj->musicID)) {
+                $this->_urls[$obj->musicID] = $this->_generateUrl($obj->musicID);
             }
         }
         $this->_urlKeys = array_keys($this->_urls);
