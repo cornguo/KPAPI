@@ -35,6 +35,7 @@ class KPAPI implements \Iterator {
                 $this->_urls[$obj->musicID] = $this->_generateUrl($obj->musicID);
             }
         }
+
         $this->_urlKeys = array_keys($this->_urls);
     }
 
