@@ -7,6 +7,7 @@ class KPAPI implements \Iterator {
     private $_urlKeys = array();
     private $_level = 0;
     protected $endpoint = 'http://api.kptaipei.tw/v1';
+    protected $pospoint = 'http://cornguo.nlplab.tw/temp/kptest/?id=';
     protected $data = array();
     protected $pos = 0;
 
@@ -103,6 +104,13 @@ class KPAPI implements \Iterator {
 
     public function valid() {
         return isset($this->_urlKeys[$this->pos]);
+    }
+
+    public function getPOS($id = NULL) {
+        if (NULL !== $id) {
+            return json_decode(file_get_contents($this->pospoint . intval($id)));
+        }
+        return NULL;
     }
 
 }

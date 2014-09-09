@@ -19,6 +19,10 @@ foreach ($categories as $key => $articles) {
     foreach ($articles as $article) {
         $articleName = $article->title;
         echo "\t>> {$articleName}\n";
+        if (NULL !== ($posData = $api->getPOS($article->id))) {
+            echo "\t  >> names: " . implode(' ', array_keys((array)$posData->names)) . "\n";
+            echo "\t  >> places: " . implode(' ', array_keys((array)$posData->places)) . "\n";
+        }
     }
     echo "\n";
 }
