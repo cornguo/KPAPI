@@ -66,3 +66,15 @@ foreach ($playlists as $key => $playlist) {
     }
     echo "\n";
 }
+
+echo "\n== DUMP FINANCIAL ==\n";
+
+$financials = $api->financial->getData();
+
+foreach ($financials as $financial) {
+    $price = intval($financial->price);
+    if ('expense' === $financial->type) {
+        $price *= -1;
+    }
+    echo ">> [{$financial->start_date} ~ {$financial->end_date}]\t{$price}\t{$financial->account}: {$financial->label}\n";
+}

@@ -22,7 +22,7 @@ class KPAPI implements \Iterator {
             $this->endpoint = $endpoint;
         }
         if (NULL === $objs) {
-            $objs = array('category', 'albums', 'videos', 'musics');
+            $objs = array('category', 'albums', 'videos', 'musics', 'financial');
         } else {
             $this->data = $objs;
         }
@@ -31,7 +31,11 @@ class KPAPI implements \Iterator {
             if (isset($obj->id)) {
                 $this->_urls[$obj->id] = $this->_generateUrl($obj->id);
             } elseif (is_string($obj)) {
-                $this->_urls[$obj] = $this->_generateUrl($obj);
+                if ('financial' === $obj) {
+                    $this->_urls[$obj] = $this->_generateUrl('financial/all');
+                } else {
+                    $this->_urls[$obj] = $this->_generateUrl($obj);
+                }
             } elseif (isset($obj->musicID)) {
                 $this->_urls[$obj->musicID] = $this->_generateUrl($obj->musicID);
             }
